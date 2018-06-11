@@ -1,0 +1,6 @@
+<routes>
+    <vType id="normal car" vClass="passenger" maxSpeed="40" speedFactor="0.009" speedDev="0.002" sigma="0.5" />
+    <vType id="sporty car" vClass="passenger" maxSpeed="60" speedFactor="0.013" speedDev="0.001" sigma="0.1" />
+    <vType id="trailer" vClass="trailer"  maxSpeed="30" speedFactor="0.011" speedDev="0.001" />
+    <vType id="coach" vClass="coach"  maxSpeed="30" speedFactor="0.01" speedDev="0.001" />
+</routes>

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="src/java"/>
+	<classpathentry kind="src" path="src/asl"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="lib" path="res/dependencies/traci4j.jar"/>
+	<classpathentry kind="lib" path="res/dependencies/jason-2.1.jar"/>
+	<classpathentry kind="output" path="bin"/>
+</classpath>

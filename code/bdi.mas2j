@@ -1,0 +1,15 @@
+MAS bdi {
+
+	infrastructure: Centralised
+	
+	/* For Braess map: SUMOEnv("--braess") */
+	environment: jasonenv.SUMOEnv("--braess")
+
+	agents:
+		car_agent;
+		
+	classpath: "res/dependencies/traci4j.jar";
+
+	aslSourcePath:
+		"src/asl";
+}

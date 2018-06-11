@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 18/05/2017 19:57:09 by Netedit Version 0.29.0
+<?xml version="1.0" encoding="UTF-8"?>
+
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netedit.exeConfiguration.xsd">
+
+    <input>
+        <sumo-net-file value="C:\Users\ruipe\git\mssi1617-bdi\res\sumo\no-braess.net.xml"/>
+    </input>
+
+    <output>
+        <output-file value="C:\Users\ruipe\git\mssi1617-bdi\res\sumo\no-braess.net.xml"/>
+    </output>
+
+    <processing>
+        <no-turnarounds value="true"/>
+        <offset.disable-normalization value="true"/>
+        <lefthand value="false"/>
+        <junctions.corner-detail value="0"/>
+    </processing>
+
+</configuration>
+-->
+
+<net version="0.27" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+
+    <location netOffset="0.00,0.00" convBoundary="0.00,0.00,1000.00,1000.00" origBoundary="-10000000000.00,-10000000000.00,10000000000.00,10000000000.00" projParameter="!"/>
+
+    <edge id=":1_0" function="internal">
+        <lane id=":1_0_0" index="0" speed="50.00" length="5.24" shape="4.95,993.45 5.05,994.15 5.35,994.65 5.85,994.95 6.55,995.05"/>
+        <lane id=":1_0_1" index="1" speed="50.00" length="5.24" shape="1.65,993.45 1.96,995.59 2.87,997.13 4.41,998.04 6.55,998.35"/>
+    </edge>
+    <edge id=":2_0" function="internal">
+        <lane id=":2_0_0" index="0" speed="50.00" length="5.24" shape="1000.05,-4.95 1002.19,-4.64 1003.72,-3.73 1004.64,-2.19 1004.95,-0.05"/>
+        <lane id=":2_0_1" index="1" speed="50.00" length="5.24" shape="1000.05,-1.65 1000.75,-1.55 1001.25,-1.25 1001.55,-0.75 1001.65,-0.05"/>
+    </edge>
+
+    <edge id="1B" from="1" to="B" priority="1">
+        <lane id="1B_0" index="0" speed="50.00" length="992.00" shape="6.55,995.05 998.55,995.05"/>
+        <lane id="1B_1" index="1" speed="50.00" length="992.00" shape="6.55,998.35 998.55,998.35"/>
+    </edge>
+    <edge id="2B" from="2" to="B" priority="1">
+        <lane id="2B_0" index="0" speed="50.00" length="992.00" shape="1004.95,-0.05 1004.95,991.95"/>
+        <lane id="2B_1" index="1" speed="50.00" length="992.00" shape="1001.65,-0.05 1001.65,991.95"/>
+    </edge>
+    <edge id="A1" from="A" to="1" priority="1">
+        <lane id="A1_0" index="0" speed="50.00" length="992.00" shape="4.95,1.45 4.95,993.45"/>
+        <lane id="A1_1" index="1" speed="50.00" length="992.00" shape="1.65,1.45 1.65,993.45"/>
+    </edge>
+    <edge id="A2" from="A" to="2" priority="1">
+        <lane id="A2_0" index="0" speed="50.00" length="992.00" shape="8.05,-4.95 1000.05,-4.95"/>
+        <lane id="A2_1" index="1" speed="50.00" length="992.00" shape="8.05,-1.65 1000.05,-1.65"/>
+    </edge>
+
+    <junction id="1" type="priority" x="0.00" y="1000.00" incLanes="A1_0 A1_1" intLanes=":1_0_0 :1_0_1" shape="6.55,999.95 6.55,993.45 0.05,993.45">
+        <request index="0" response="00" foes="00" cont="0"/>
+        <request index="1" response="00" foes="00" cont="0"/>
+    </junction>
+    <junction id="2" type="priority" x="1000.00" y="0.00" incLanes="A2_0 A2_1" intLanes=":2_0_0 :2_0_1" shape="1000.05,-0.05 1006.55,-0.05 1000.05,-6.55">
+        <request index="0" response="00" foes="00" cont="0"/>
+        <request index="1" response="00" foes="00" cont="0"/>
+    </junction>
+    <junction id="A" type="unregulated" x="0.00" y="0.00" incLanes="" intLanes="" shape="0.05,1.45 6.55,1.45 8.05,-0.05 8.05,-6.55"/>
+    <junction id="B" type="unregulated" x="1000.00" y="1000.00" incLanes="2B_0 2B_1 1B_0 1B_1" intLanes="" shape="1006.55,991.95 1000.05,991.95 998.55,993.45 998.55,999.95"/>
+
+    <connection from="A1" to="1B" fromLane="0" toLane="0" via=":1_0_0" dir="r" state="M"/>
+    <connection from="A1" to="1B" fromLane="1" toLane="1" via=":1_0_1" dir="r" state="M"/>
+    <connection from="A2" to="2B" fromLane="0" toLane="0" via=":2_0_0" dir="l" state="M"/>
+    <connection from="A2" to="2B" fromLane="1" toLane="1" via=":2_0_1" dir="l" state="M"/>
+
+    <connection from=":1_0" to="1B" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from=":1_0" to="1B" fromLane="1" toLane="1" dir="s" state="M"/>
+    <connection from=":2_0" to="2B" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from=":2_0" to="2B" fromLane="1" toLane="1" dir="s" state="M"/>
+
+</net>

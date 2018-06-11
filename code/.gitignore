@@ -1,0 +1,9 @@
+*.class
+
+/bin/
+
+.DS_Store
+/q_values.dat
+res/sumo/loop_*
+/agents_travel_time.txt
+/q_values_braess.dat

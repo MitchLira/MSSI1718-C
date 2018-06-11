@@ -1,0 +1,6 @@
+<additionals>
+    <e1Detector id="loop_A1_0" lane="A1_0" pos="800.00" freq="100.00" file="loop_A1_0.txt" splitByType="0"/>
+    <e1Detector id="loop_A1_1" lane="A1_1" pos="800.00" freq="100.00" file="loop_A1_1.txt" splitByType="0"/>
+    <e1Detector id="loop_A2_0" lane="A2_0" pos="800.00" freq="100.00" file="loop_A2_0.txt" splitByType="0"/>
+    <e1Detector id="loop_A2_1" lane="A2_1" pos="800.00" freq="100.00" file="loop_A2_1.txt" splitByType="0"/>
+</additionals>
