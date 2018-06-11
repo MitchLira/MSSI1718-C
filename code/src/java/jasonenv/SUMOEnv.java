@@ -219,7 +219,7 @@ public class SUMOEnv extends Environment {
 				startAgents();
 			}
 		});		
-
+		
 		instance.start();
 	}
 
@@ -402,16 +402,17 @@ public class SUMOEnv extends Environment {
 		try {
 			FileWriter pw = null;
 			double sumTravelTime = 0;
-			System.out.println(Files.exists(Paths.get(GeneralConsts.AGENTS_TRAVEL_TIME_FILENAME)));
-			if(Files.exists(Paths.get(GeneralConsts.AGENTS_TRAVEL_TIME_FILENAME))) {
-				pw = new FileWriter(GeneralConsts.AGENTS_TRAVEL_TIME_FILENAME, true);
+			if(!Files.exists(Paths.get(GeneralConsts.AGENTS_TRAVEL_TIME_FILENAME))) {
+				pw = new FileWriter(GeneralConsts.AGENTS_TRAVEL_TIME_FILENAME);
 				for (Map.Entry<String, Double> auxMap : agentsTravelTime.entrySet()) {
 					StringBuilder sb = new StringBuilder();
 					sb.append(auxMap.getKey());
 					sb.append("\t");
+					System.out.println(sb);
 					pw.append(sb.toString());
 				}
 				pw.append("Average\n");
+				pw.flush();
 			}
 			pw = new FileWriter(GeneralConsts.AGENTS_TRAVEL_TIME_FILENAME, true);
 			for (Map.Entry<String, Double> auxMap : agentsTravelTime.entrySet()) {
