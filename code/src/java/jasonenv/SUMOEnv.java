@@ -22,6 +22,7 @@ import java.util.Set;
 import java.util.concurrent.atomic.AtomicInteger;
 
 import consts.GeneralConsts;
+import exception.BadConnectionStatusException;
 import it.polito.appeal.traci.Edge;
 import it.polito.appeal.traci.InductionLoop;
 import it.polito.appeal.traci.StepAdvanceListener;
@@ -379,7 +380,12 @@ public class SUMOEnv extends Environment {
 			qValues.putTemperature(agName, temperature);
 
 			if (numArrivals.incrementAndGet() == GeneralConsts.NUM_VEHICLES) {
-				terminate();
+				try {
+					terminate();
+				} catch (IOException | InterruptedException | BadConnectionStatusException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 			}
 
 			return true;
@@ -388,7 +394,7 @@ public class SUMOEnv extends Environment {
 		return false;
 	}
 
-	public void terminate() {
+	public void terminate() throws IOException, InterruptedException, BadConnectionStatusException {
 		try {
 			ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream((this.braessMode ? GeneralConsts.Q_VALUES_FILENAME_BRAESS : GeneralConsts.Q_VALUES_FILENAME_NO_BRAESS)));
 			oos.writeObject(qValues);
@@ -408,7 +414,6 @@ public class SUMOEnv extends Environment {
 					StringBuilder sb = new StringBuilder();
 					sb.append(auxMap.getKey());
 					sb.append("\t");
-					System.out.println(sb);
 					pw.append(sb.toString());
 				}
 				pw.append("Average\n");
@@ -434,6 +439,17 @@ public class SUMOEnv extends Environment {
 		}
 		
 		instance.terminate();
+		instance.join();
+
+		Thread tr = getThreadByName("main");
+		tr.interrupt();
+	}
+	
+	public Thread getThreadByName(String threadName) {
+	    for (Thread t : Thread.getAllStackTraces().keySet()) {
+	        if (t.getName().equals(threadName)) return t;
+	    }
+	    return null;
 	}
 
 	/** Called before the end of MAS execution */

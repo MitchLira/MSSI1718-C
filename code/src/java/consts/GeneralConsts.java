@@ -1,7 +1,7 @@
 package consts;
 
 public final class GeneralConsts {
-	public static int NUM_VEHICLES = 1000;
+	public static int NUM_VEHICLES = 100;
 	public static int MAX_DELAY = 500;
 	public static double INITIAL_TEMP = 1000;
 	public static double LEARNING_RATE = 0.5;

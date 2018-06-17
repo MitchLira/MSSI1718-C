@@ -55,7 +55,6 @@ public class SUMOInstance extends Thread {
 		if (this.connStatus != ConnectionStatus.MAY_OPEN)
 			throw new BadConnectionStatusException();
 		this.connStatus = ConnectionStatus.CLOSED;
-		this.conn.close();
 	}
 
 	public void nextStep() throws IllegalStateException, BadConnectionStatusException, IOException {
@@ -137,19 +136,25 @@ public class SUMOInstance extends Thread {
 		}
 	}
 
-	public void terminate() {
+	public void terminate() throws IOException, InterruptedException, BadConnectionStatusException {
 		this.connStatus = ConnectionStatus.CLOSED;
 		this.terminate.set(true);
+		try {
+			conn.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 
 	public void signalError() {
 		this.connStatus = ConnectionStatus.ERROR;
 		this.terminate.set(true);
 	}
+	
 
 	public void run() {
 		try {
-			this.connect(true);
+			this.connect(false);
 		} catch (InterruptedException e1) {
 			e1.printStackTrace();
 		} catch (IOException e1) {
@@ -157,34 +162,30 @@ public class SUMOInstance extends Thread {
 		} catch (BadConnectionStatusException e1) {
 			e1.printStackTrace();
 		}
-
+				
 		try {
 			this.inductionLoops = this.conn.getInductionLoopRepository().getAll();
 		} catch (IOException e1) {
 			e1.printStackTrace();
 		}
-
+		
 		this.notifyInstanceStarted();
-
-		try {
-			while (!terminate.get()) {
-				synchronized (conn) {
-					conn.nextSimStep();
+			try {
+				while (!terminate.get()) {
+					synchronized (conn) {
+						conn.nextSimStep();
+					}
+					Thread.sleep(GeneralConsts.SIMULATION_STEP);
 				}
-				Thread.sleep(GeneralConsts.SIMULATION_STEP);
+			} catch(InterruptedException e) {
+				e.printStackTrace();
+			} catch (IllegalStateException e) {
+				e.printStackTrace();
+			} catch (IOException e) {
+				e.printStackTrace();
 			}
-		} catch(InterruptedException e) {
-			e.printStackTrace();
-		} catch (IllegalStateException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-
-		try {
-			conn.close();
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+		
+		
+		
 	}
 }

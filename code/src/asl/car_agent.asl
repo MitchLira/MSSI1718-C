@@ -6,6 +6,10 @@ state(initial).
 
 actions([]).
 
+temperature(0).
+
+value(0,0,0).
+
 /* Initial goals */
 
 !start.
