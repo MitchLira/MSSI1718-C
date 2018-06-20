@@ -154,7 +154,7 @@ public class SUMOInstance extends Thread {
 
 	public void run() {
 		try {
-			this.connect(false);
+			this.connect(true);
 		} catch (InterruptedException e1) {
 			e1.printStackTrace();
 		} catch (IOException e1) {

@@ -7,7 +7,6 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-import java.io.PrintWriter;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
@@ -48,7 +47,7 @@ public class SUMOEnv extends Environment {
 	private Random rand = new Random();
 	
 	private Map<String, String> routesToLanes = new HashMap<>();
-	
+
 	private Map<String, Double> agentsTravelTime = new TreeMap<>();
 	private AtomicInteger numArrivals = new AtomicInteger(0);
 
@@ -63,8 +62,13 @@ public class SUMOEnv extends Environment {
 	
 	public static Map<String, List<Edge>> routes = new HashMap<>();
 	public static Map<String, Vehicle> vehicleObjects = new HashMap<>();
-	
+		
 	public static SUMOInstance instance = null;
+	private String[] group;
+	
+	public Map<String, String> getRoutesToLanes() {
+		return routesToLanes;
+	}
 
 	/** Called before the MAS execution with the args informed in .mas2j */
 	@Override
@@ -76,11 +80,12 @@ public class SUMOEnv extends Environment {
 			configFile = GeneralConsts.BRAESS_CONFIG_FILE;
 			this.braessMode = true;
 		}
-
+		
+		group = args[1].split(",");
 		instance = new SUMOInstance(configFile);
 
 		
-		File qValuesFile = new File((this.braessMode ? GeneralConsts.Q_VALUES_FILENAME_BRAESS : GeneralConsts.Q_VALUES_FILENAME_NO_BRAESS));
+		File qValuesFile = new File(GeneralConsts.Q_VALUES_FILENAME_BRAESS);
 		if (qValuesFile.exists()) {
 			try {
 				ObjectInputStream ois = new ObjectInputStream(new FileInputStream(qValuesFile));
@@ -227,113 +232,124 @@ public class SUMOEnv extends Environment {
 	public void startAgents() {
 		// Creates and starts the agents.
 		RuntimeServicesInfraTier runservice = getEnvironmentInfraTier().getRuntimeServices();
-
-		for (int i = 0; i < GeneralConsts.NUM_VEHICLES; i++) {
-			String agentID = "agent_" + i;
-
-			try {
-				runservice.createAgent(
-						agentID,               	// agent name
-						"car_agent.asl",   		// AgentSpeak source
-						null,                  	// default agent class
-						null,                  	// default architecture class
-						null,                	// default belief base parameters
-						null, null);
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
+		int counter = 0;
+		for(int t = 0; t < group.length; t++) {
+			String[] splitted = group[t].split("-");
 			
-			List<String> routes = new ArrayList<>();
-			routes.add("r1");
-			routes.add("r2");
-
-			if (this.braessMode) {
-				routes.add("r3");
-				routes.add("r4");
-			}
-			
-			if (!qValues.contains(agentID)) {	
-				List<Pair> pairs = new ArrayList<>();
-				for (String route: routes) {
-					pairs.add(new Pair("initial", route));
+			for (int i = 0; i < Integer.parseInt(splitted[0]); i++) {
+				String agentID = "agent_" + counter;
+				counter++;
+				Literal cost = new LiteralImpl("cost");
+				cost.addTerm(new Atom(splitted[1]));
+				try {
+					runservice.createAgent(
+							agentID,               	// agent name
+							"car_agent.asl",   		// AgentSpeak source
+							null,                  	// default agent class
+							null,                  	// default architecture class
+							null,                	// default belief base parameters
+							null, null);
+				} catch (Exception e) {
+					e.printStackTrace();
 				}
-				
+							
+				List<String> routes = new ArrayList<>();
+				routes.add("r1");
+				routes.add("r2");
+
 				if (this.braessMode) {
-					for (String route: routes) {
-						pairs.add(new Pair(route, "k"));		// Keep route.
-						pairs.add(new Pair(route, "c"));		// Change route.
-					}
+					routes.add("r3");
+					routes.add("r4");
 				}
-
-				qValues.initialize(agentID, pairs);
-			} else if (this.braessMode) {
-				if (!qValues.containsStateForAgent(agentID, new Pair("initial", "r3"))) {
-					List<String> routesToAdd = new ArrayList<>();
-					routesToAdd.add("r3");
-					routesToAdd.add("r4");
-					
+				
+				if (!qValues.contains(agentID)) {	
 					List<Pair> pairs = new ArrayList<>();
-					for (String route: routesToAdd) {
+					for (String route: routes) {
 						pairs.add(new Pair("initial", route));
-						pairs.add(new Pair(route, "k"));		// Keep route.
-						pairs.add(new Pair(route, "c"));		// Change route.
 					}
 					
-					qValues.updateAgent(agentID, pairs);
+					if (this.braessMode) {
+						for (String route: routes) {
+							pairs.add(new Pair(route, "k"));		// Keep route.
+							pairs.add(new Pair(route, "c"));		// Change route.
+						}
+					}
+
+					qValues.initialize(agentID, pairs);
+				} else if (this.braessMode) {
+					if (!qValues.containsStateForAgent(agentID, new Pair("initial", "r3"))) {
+						List<String> routesToAdd = new ArrayList<>();
+						routesToAdd.add("r3");
+						routesToAdd.add("r4");
+						
+						List<Pair> pairs = new ArrayList<>();
+						for (String route: routesToAdd) {
+							pairs.add(new Pair("initial", route));
+							pairs.add(new Pair(route, "k"));		// Keep route.
+							pairs.add(new Pair(route, "c"));		// Change route.
+						}
+						
+						qValues.updateAgent(agentID, pairs);
+					}
 				}
+
+				List<Literal> initialPercepts = new ArrayList<>();
+				
+				for (String route: routes) {
+					Literal routeLiteral = new LiteralImpl("route");
+					routeLiteral.addTerms(new Atom(route));
+					initialPercepts.add(routeLiteral);
+				}
+				
+				Map<Pair, Double> agentValues = qValues.get(agentID);
+				Set<Pair> stateActions = agentValues.keySet();
+				
+				for (Pair stateAction: stateActions) {
+					Literal valueLiteral = new LiteralImpl("value");
+					valueLiteral.addTerms(new Atom(stateAction.getState()), new Atom(stateAction.getAction()),
+							new NumberTermImpl(agentValues.get(stateAction)));
+					initialPercepts.add(valueLiteral);
+				}
+				
+				double temperature = qValues.getTemperature(agentID);
+				Literal temperatureLiteral = new LiteralImpl("temperature");
+				temperatureLiteral.addTerm(new NumberTermImpl(temperature));
+				initialPercepts.add(temperatureLiteral);
+
+				if (this.braessMode) {				
+					Literal pair1 = new LiteralImpl("pair");
+					pair1.addTerms(new Atom("r1"), new Atom("r3"));
+					
+					Literal pair2 = new LiteralImpl("pair");
+					pair2.addTerms(new Atom("r3"), new Atom("r1"));
+					
+					Literal pair3 = new LiteralImpl("pair");
+					pair3.addTerms(new Atom("r2"), new Atom("r4"));
+					
+					Literal pair4 = new LiteralImpl("pair");
+					pair4.addTerms(new Atom("r4"), new Atom("r2"));
+					
+					initialPercepts.add(pair1);
+					initialPercepts.add(pair2);
+					initialPercepts.add(pair3);
+					initialPercepts.add(pair4);
+				}
+				
+				Literal agentName = new LiteralImpl("name");
+				agentName.addTerm(new Atom(agentID));
+				initialPercepts.add(agentName);
+				initialPercepts.add(cost);
+				
+				Literal[] percepts = new Literal[initialPercepts.size()];
+				addPercept(agentID, initialPercepts.toArray(percepts));
+
+				
+				runservice.startAgent(agentID);
 			}
 
-			List<Literal> initialPercepts = new ArrayList<>();
-			
-			for (String route: routes) {
-				Literal routeLiteral = new LiteralImpl("route");
-				routeLiteral.addTerms(new Atom(route));
-				initialPercepts.add(routeLiteral);
-			}
-			
-			Map<Pair, Double> agentValues = qValues.get(agentID);
-			Set<Pair> stateActions = agentValues.keySet();
-			
-			for (Pair stateAction: stateActions) {
-				Literal valueLiteral = new LiteralImpl("value");
-				valueLiteral.addTerms(new Atom(stateAction.getState()), new Atom(stateAction.getAction()),
-						new NumberTermImpl(agentValues.get(stateAction)));
-				initialPercepts.add(valueLiteral);
-			}
-			
-			double temperature = qValues.getTemperature(agentID);
-			Literal temperatureLiteral = new LiteralImpl("temperature");
-			temperatureLiteral.addTerm(new NumberTermImpl(temperature));
-			initialPercepts.add(temperatureLiteral);
-
-			if (this.braessMode) {				
-				Literal pair1 = new LiteralImpl("pair");
-				pair1.addTerms(new Atom("r1"), new Atom("r3"));
-				
-				Literal pair2 = new LiteralImpl("pair");
-				pair2.addTerms(new Atom("r3"), new Atom("r1"));
-				
-				Literal pair3 = new LiteralImpl("pair");
-				pair3.addTerms(new Atom("r2"), new Atom("r4"));
-				
-				Literal pair4 = new LiteralImpl("pair");
-				pair4.addTerms(new Atom("r4"), new Atom("r2"));
-				
-				initialPercepts.add(pair1);
-				initialPercepts.add(pair2);
-				initialPercepts.add(pair3);
-				initialPercepts.add(pair4);
-			}
-			
-			Literal agentName = new LiteralImpl("name");
-			agentName.addTerm(new Atom(agentID));
-			initialPercepts.add(agentName);
-			
-			Literal[] percepts = new Literal[initialPercepts.size()];
-			addPercept(agentID, initialPercepts.toArray(percepts));
-
-			runservice.startAgent(agentID);
 		}
+		GeneralConsts.NUM_VEHICLES = counter;
+		System.out.println("NUM VEHICLESSSSSSSSSSSSSSSSSS" + GeneralConsts.NUM_VEHICLES);
 	}
 
 	public boolean killAgent(String agentName) {
@@ -378,7 +394,6 @@ public class SUMOEnv extends Environment {
 			NumberTerm temperatureTerm = (NumberTerm) action.getTerm(1);
 			double temperature = Double.parseDouble(temperatureTerm.toString());
 			qValues.putTemperature(agName, temperature);
-
 			if (numArrivals.incrementAndGet() == GeneralConsts.NUM_VEHICLES) {
 				try {
 					terminate();

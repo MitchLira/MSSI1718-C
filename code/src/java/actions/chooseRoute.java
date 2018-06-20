@@ -3,6 +3,7 @@
 package actions;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -10,6 +11,7 @@ import java.util.Map;
 import java.util.Random;
 
 import it.polito.appeal.traci.Edge;
+import it.polito.appeal.traci.Lane;
 import jason.asSemantics.*;
 import jason.asSyntax.*;
 import jason.bb.BeliefBase;
@@ -32,6 +34,8 @@ public class chooseRoute extends DefaultInternalAction {
 		boolean routeHasBeenSelected = false;
 
 		Literal stateLiteral = bb.getCandidateBeliefs(new PredicateIndicator("state", 1)).next();
+		Literal costLiteral = bb.getCandidateBeliefs(new PredicateIndicator("cost", 1)).next();
+		double cost = Double.parseDouble(costLiteral.getTerm(0).toString());
 
 		String state = stateLiteral.getTerm(0).toString();
 		
@@ -47,12 +51,15 @@ public class chooseRoute extends DefaultInternalAction {
 				values.add(value);
 			}
 		}
+		
 
 		if (values.size() > 0) {
 
 			double denominator = 0;
 			Map<String, Double> probabilityTerms = new HashMap<>();
 			Map<String, Double> roulette = new HashMap<>();
+			Map<String, Double> ratio = new HashMap<>();
+
 
 			for (Literal value: values) {
 				String actionName = value.getTerm(1).toString();
@@ -68,11 +75,28 @@ public class chooseRoute extends DefaultInternalAction {
 				double probability = probabilityTerms.get(actionName) / denominator;
 				sum += probability;
 				roulette.put(actionName, sum);
+				List<Edge> route = SUMOEnv.routes.get(actionName);
+				Collection<Lane> lanes = SUMOEnv.instance.getLanes().values();
+				Double totalLength = 0.0;
+				Double averageSpeed = 0.0;
+				int counter = 0;
+				for(Iterator<Lane> it = lanes.iterator(); it.hasNext();) {
+					Lane l = it.next();
+					if(route.contains(l.getParentEdge())) {
+						totalLength += l.getLength();
+						averageSpeed += l.getMaxSpeed();
+						counter++;
+					}
+				}
+				averageSpeed /= counter;
+				ratio.put(actionName, totalLength/averageSpeed);
 			}
 
 			// Selects route.
 			double generated = rand.nextDouble();
 			for (String actionName: roulette.keySet()) {
+				System.out.println("ratio: " + ratio.get(actionName));
+				System.out.println("cost: " + cost);
 				if (generated <= roulette.get(actionName)) {
 					Literal action = new LiteralImpl("action");
 					action.addTerms(new Atom(state), new Atom(actionName));
@@ -98,7 +122,6 @@ public class chooseRoute extends DefaultInternalAction {
 
 									Literal nameLiteral = bb.getCandidateBeliefs(new PredicateIndicator("name", 1)).next();
 									List<Edge> route = SUMOEnv.routes.get(newRoute);
-
 									synchronized(SUMOEnv.instance.getConn()) {
 										SUMOEnv.vehicleObjects.get(nameLiteral.getTerm(0).toString()).changeRoute(route);
 									}
@@ -109,7 +132,6 @@ public class chooseRoute extends DefaultInternalAction {
 							}
 						}
 					}
-
 					if (routeHasBeenSelected) {
 						Literal statesLiteral = bb.getCandidateBeliefs(new PredicateIndicator("actions", 1)).next();
 						((ListTerm) statesLiteral.getTerm(0)).add(action);
