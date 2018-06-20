@@ -71,6 +71,8 @@ public class chooseRoute extends DefaultInternalAction {
 			}
 
 			// Selects route.
+			//Acrescentar aqui condição para escolher consoante o preco da route
+			
 			double generated = rand.nextDouble();
 			for (String actionName: roulette.keySet()) {
 				if (generated <= roulette.get(actionName)) {
