@@ -1,23 +1,30 @@
 // Agent sample_agent in project bdi
 
+
+
 /* Initial beliefs and rules */
 
-state(initial).
+	state(initial).
 
-actions([]).
+	actions([]).
 
-temperature(0).
+	temperature(0).
 
-value(0,0,0).
+	value(0,0,0).
+
+
+
 
 /* Initial goals */
 
-!start.
+	!start.
+
+
 
 /* Plans */
 
-+!start : true <- actions.chooseRoute(Route); createAvatar(Route).
+	+!start : true <- actions.chooseRoute(Route); createAvatar(Route).
 
-+intersection : true <- actions.chooseRoute(Current, New).
+	+intersection : true <- actions.chooseRoute(Current, New).
 
-+arrived(_): true <- actions.updateQValues(Values, Temperature); signalArrival(Values, Temperature).
+	+arrived(_): true <- actions.updateQValues(Values, Temperature); signalArrival(Values, Temperature).

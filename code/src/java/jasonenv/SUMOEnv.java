@@ -7,7 +7,6 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-import java.io.PrintWriter;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
@@ -21,8 +20,6 @@ import java.util.TreeMap;
 import java.util.Set;
 import java.util.concurrent.atomic.AtomicInteger;
 
-import consts.GeneralConsts;
-import exception.BadConnectionStatusException;
 import it.polito.appeal.traci.Edge;
 import it.polito.appeal.traci.InductionLoop;
 import it.polito.appeal.traci.StepAdvanceListener;
@@ -38,6 +35,9 @@ import jason.asSyntax.Structure;
 import jason.asSyntax.Term;
 import jason.environment.Environment;
 import jason.runtime.RuntimeServicesInfraTier;
+
+import consts.GeneralConsts;
+import exception.BadConnectionStatusException;
 import observer.InstanceStartedObserver;
 import storage.Pair;
 import storage.QValueStorage;
@@ -233,11 +233,11 @@ public class SUMOEnv extends Environment {
 
 			try {
 				runservice.createAgent(
-						agentID,               	// agent name
+						agentID,               		// agent name
 						"car_agent.asl",   		// AgentSpeak source
-						null,                  	// default agent class
-						null,                  	// default architecture class
-						null,                	// default belief base parameters
+						null,                  			// default agent class
+						null,                  			// default architecture class
+						null,               			 	// default belief base parameters
 						null, null);
 			} catch (Exception e) {
 				e.printStackTrace();
@@ -253,7 +253,7 @@ public class SUMOEnv extends Environment {
 			}
 			
 			if (!qValues.contains(agentID)) {	
-				List<Pair> pairs = new ArrayList<>();
+				List<Pair> pairs = new ArrayList<>();		//Pair(String state, String action)
 				for (String route: routes) {
 					pairs.add(new Pair("initial", route));
 				}
