@@ -27,13 +27,13 @@ public class chooseRoute extends DefaultInternalAction {
 	@Override
 	public Object execute(TransitionSystem ts, Unifier un, Term[] args) throws Exception {
 
-		BeliefBase bb = ts.getAg().getBB();
+		BeliefBase bb = ts.getAg().getBB(); //Vai buscar as beliefs atuais
 
-		boolean routeHasBeenSelected = false;
+		boolean routeHasBeenSelected = false;	//boolean para selecao da route
 
-		Literal stateLiteral = bb.getCandidateBeliefs(new PredicateIndicator("state", 1)).next();
+		Literal stateLiteral = bb.getCandidateBeliefs(new PredicateIndicator("state", 1)).next(); //vai buscar o primeiro state?
 
-		String state = stateLiteral.getTerm(0).toString();
+		String state = stateLiteral.getTerm(0).toString();	//Colocar o state em string
 		
 		Literal temperatureLiteral = bb.getCandidateBeliefs(new PredicateIndicator("temperature", 1)).next();
 		double temperature = Double.parseDouble(temperatureLiteral.getTerm(0).toString());
