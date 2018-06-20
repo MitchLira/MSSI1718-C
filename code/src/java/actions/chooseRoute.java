@@ -35,12 +35,12 @@ public class chooseRoute extends DefaultInternalAction {
 
 		String state = stateLiteral.getTerm(0).toString();	//Colocar o state em string
 		
-		Literal temperatureLiteral = bb.getCandidateBeliefs(new PredicateIndicator("temperature", 1)).next();
+		Literal temperatureLiteral = bb.getCandidateBeliefs(new PredicateIndicator("temperature", 1)).next();	//???
 		double temperature = Double.parseDouble(temperatureLiteral.getTerm(0).toString());
 
-		Iterator<Literal> valuesIterator = bb.getCandidateBeliefs(new PredicateIndicator("value", 3));
+		Iterator<Literal> valuesIterator = bb.getCandidateBeliefs(new PredicateIndicator("value", 3)); 	//Vai buscar todos os conjuntos de valores
 
-		List<Literal> values = new ArrayList<>();
+		List<Literal> values = new ArrayList<>(); 	//Vai guardar valores como (state,action,nao sei qual)
 		while (valuesIterator.hasNext()) {
 			Literal value = valuesIterator.next();
 			if (value.getTerm(0).toString().equals(state)) {
