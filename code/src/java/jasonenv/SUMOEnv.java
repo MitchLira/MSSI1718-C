@@ -62,6 +62,7 @@ public class SUMOEnv extends Environment {
 	
 	public static Map<String, List<Edge>> routes = new HashMap<>();
 	public static Map<String, Vehicle> vehicleObjects = new HashMap<>();
+	public static Map<String, String> routesOfAgents = new HashMap<>();
 		
 	public static SUMOInstance instance = null;
 	private String[] group;
@@ -430,7 +431,7 @@ public class SUMOEnv extends Environment {
 					sb.append("\t");
 					pw.append(sb.toString());
 				}
-				pw.append("Average\n");
+				pw.append("Route\tAverage\n");
 				pw.flush();
 			}
 			pw = new FileWriter(GeneralConsts.AGENTS_TRAVEL_TIME_FILENAME, true);
@@ -438,6 +439,7 @@ public class SUMOEnv extends Environment {
 				StringBuilder sb = new StringBuilder();
 				sb.append(auxMap.getValue());
 				sb.append("\t");
+				sb.append(routesOfAgents.get(auxMap.getKey()));
 				pw.append(sb.toString());
 				sumTravelTime += auxMap.getValue();
 			}

@@ -136,6 +136,8 @@ public class chooseRoute extends DefaultInternalAction {
 
 			// Selects route.
 			double generated = rand.nextDouble();
+			Literal nameLiteral = bb.getCandidateBeliefs(new PredicateIndicator("name", 1)).next();
+			String agentName = nameLiteral.getTerm(0).toString();
 			for (String actionName: roulette.keySet()) {
 				if (generated <= roulette.get(actionName)) {
 					Literal action = new LiteralImpl("action");
@@ -143,12 +145,14 @@ public class chooseRoute extends DefaultInternalAction {
 					if (state.equals("initial")) {
 						un.bind((VarTerm) args[0], new Atom(actionName));
 						stateLiteral.setTerm(0, new Atom(actionName));
+						SUMOEnv.routesOfAgents.put(agentName, actionName);
 						routeHasBeenSelected = true;
 					} else {
 						String currentRoute = state;
 						un.bind((VarTerm) args[0], new Atom(currentRoute));
 						if (actionName.equals("k")) {
 							un.bind((VarTerm) args[1], new Atom(currentRoute));
+							SUMOEnv.routesOfAgents.put(agentName, currentRoute);
 							routeHasBeenSelected = true;
 						} else {
 							Iterator<Literal> pairsIterator = bb.getCandidateBeliefs(new PredicateIndicator("pair", 2));
@@ -158,12 +162,11 @@ public class chooseRoute extends DefaultInternalAction {
 									String newRoute = pair.getTerm(1).toString();
 									un.bind((VarTerm) args[1], new Atom(newRoute));
 									stateLiteral.setTerm(0, new Atom(newRoute));
-									Literal nameLiteral = bb.getCandidateBeliefs(new PredicateIndicator("name", 1)).next();
 									List<Edge> route = SUMOEnv.routes.get(newRoute);
 									synchronized(SUMOEnv.instance.getConn()) {
-										SUMOEnv.vehicleObjects.get(nameLiteral.getTerm(0).toString()).changeRoute(route);
+										SUMOEnv.vehicleObjects.get(agentName).changeRoute(route);
 									}
-
+									SUMOEnv.routesOfAgents.put(agentName, newRoute);
 									routeHasBeenSelected = true;
 									break;
 								}
