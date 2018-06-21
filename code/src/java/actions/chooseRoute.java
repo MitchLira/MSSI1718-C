@@ -38,7 +38,7 @@ public class chooseRoute extends DefaultInternalAction {
 		double cost = Double.parseDouble(costLiteral.getTerm(0).toString());
 
 		String state = stateLiteral.getTerm(0).toString();
-		
+
 		Literal temperatureLiteral = bb.getCandidateBeliefs(new PredicateIndicator("temperature", 1)).next();
 		double temperature = Double.parseDouble(temperatureLiteral.getTerm(0).toString());
 
@@ -51,7 +51,7 @@ public class chooseRoute extends DefaultInternalAction {
 				values.add(value);
 			}
 		}
-		
+
 
 		if (values.size() > 0) {
 
@@ -68,44 +68,55 @@ public class chooseRoute extends DefaultInternalAction {
 				denominator += probabilityTerm;
 
 				probabilityTerms.put(actionName, probabilityTerm);
-				System.out.println(actionName);
+				System.out.println(state + " --- " + actionName);
 				List<Edge> route = new ArrayList<Edge>();
-				if(state.equals("initial") && (actionName.equals("r3") || actionName.equals("r4"))) {
+				if(state.equals("initial")) {
 					route = SUMOEnv.routes.get(actionName);
 				}
-				else if(state.equals("r3") || state.equals("r4")) {
+				else {
 					route = SUMOEnv.routes.get(state);
 				}
-				if((state.equals("initial") && (actionName.equals("r3") || actionName.equals("r4"))) || state.equals("r3") || state.equals("r4")) {
-					Collection<Lane> lanes = SUMOEnv.instance.getLanes().values();
-					double totalLength = 0.0;
-					double averageSpeed = 0.0;
-					int counter = 0;
-					ArrayList<Edge> parentEdges = new ArrayList<Edge>();
-					for(Iterator<Lane> it = lanes.iterator(); it.hasNext();) {
-						Lane l = it.next();
-						if(!parentEdges.contains(l.getParentEdge())) {
-							if(route.contains(l.getParentEdge())) {
-								totalLength += l.getLength();
-								averageSpeed += l.getMaxSpeed();
-								counter++;
-							}
-							parentEdges.add(l.getParentEdge());
+				Collection<Lane> lanes = SUMOEnv.instance.getLanes().values();
+				double totalLength = 0.0;
+				double averageSpeed = 0.0;
+				int counter = 0;
+				ArrayList<Edge> parentEdges = new ArrayList<Edge>();
+				for(Iterator<Lane> it = lanes.iterator(); it.hasNext();) {
+					Lane l = it.next();
+					if(!parentEdges.contains(l.getParentEdge())) {
+						if(route.contains(l.getParentEdge())) {
+							totalLength += l.getLength();
+							averageSpeed += l.getMaxSpeed();
+							counter++;
 						}
+						parentEdges.add(l.getParentEdge());
 					}
-					System.out.println("length " + totalLength);
-					averageSpeed /= counter;
+				}
+				System.out.println("length " + totalLength);
+				averageSpeed /= counter;
 
-					System.out.println("speed " + averageSpeed);
+				System.out.println("speed " + averageSpeed);
+				if(state.equals("initial")){
+					ratio.put(actionName, totalLength/averageSpeed);
+				}
+				else {
 					ratio.put(state, totalLength/averageSpeed);
 				}
-				
+
 			}
 
 			double sum = 0;
 			for (String actionName: probabilityTerms.keySet()) {
 				double value = 0.0;
-				if(state.equals("r3") || state.equals("r4")) {
+				if(state.equals("initial") && (actionName.equals("r3") || actionName.equals("r4"))) {
+					if(ratio.containsKey("r1")) {
+						value = ratio.get(actionName)/ratio.get("r1");
+					}
+					else if(ratio.containsKey("r2")) {
+						value = ratio.get(actionName)/ratio.get("r2");
+					}
+				}
+				else if(state.equals("r3") || state.equals("r4")) {
 					if(ratio.containsKey("r1")) {
 						value = ratio.get(state)/ratio.get("r1");
 					}
@@ -120,7 +131,7 @@ public class chooseRoute extends DefaultInternalAction {
 					sum += 0.1*probability;
 				}
 				roulette.put(actionName, sum);
-				
+
 			}
 
 			// Selects route.
@@ -167,7 +178,7 @@ public class chooseRoute extends DefaultInternalAction {
 				}
 			}
 		}
-		
+
 		return routeHasBeenSelected;
 	}
 }
