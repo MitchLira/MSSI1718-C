@@ -18,4 +18,5 @@ public final class GeneralConsts {
 	public static final int SIMULATION_STEP = 1;
 	public static final int INDUCTION_LOOP_STEP = 10;
 	public static final int MAX_INTERSECTION_DELAY = 5;
+	public static final String AGENTS_ROUTES_FILENAME = "agents_routes.tsv";
 }

@@ -422,31 +422,42 @@ public class SUMOEnv extends Environment {
 		
 		try {
 			FileWriter pw = null;
+			FileWriter pww = null;
 			double sumTravelTime = 0;
 			if(!Files.exists(Paths.get(GeneralConsts.AGENTS_TRAVEL_TIME_FILENAME))) {
 				pw = new FileWriter(GeneralConsts.AGENTS_TRAVEL_TIME_FILENAME);
+				pww = new FileWriter(GeneralConsts.AGENTS_ROUTES_FILENAME);
 				for (Map.Entry<String, Double> auxMap : agentsTravelTime.entrySet()) {
 					StringBuilder sb = new StringBuilder();
 					sb.append(auxMap.getKey());
 					sb.append("\t");
 					pw.append(sb.toString());
+					pww.append(sb.toString());
 				}
+				pww.append("\n");
 				pw.append("Route\tAverage\n");
 				pw.flush();
+				pww.flush();
 			}
 			pw = new FileWriter(GeneralConsts.AGENTS_TRAVEL_TIME_FILENAME, true);
+			pww = new FileWriter(GeneralConsts.AGENTS_ROUTES_FILENAME, true);
 			for (Map.Entry<String, Double> auxMap : agentsTravelTime.entrySet()) {
 				StringBuilder sb = new StringBuilder();
+				StringBuilder sbb = new StringBuilder();
 				sb.append(auxMap.getValue());
 				sb.append("\t");
-				sb.append(routesOfAgents.get(auxMap.getKey()));
+				sbb.append(routesOfAgents.get(auxMap.getKey()) + "\t");
 				pw.append(sb.toString());
+				pww.append(sbb.toString());
 				sumTravelTime += auxMap.getValue();
 			}
 			double averageTravelTime = sumTravelTime / agentsTravelTime.size();
 			pw.append(averageTravelTime + "\n");
+			pww.append("\n");
 			pw.flush();
 			pw.close();
+			pww.flush();
+			pww.close();
 
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
