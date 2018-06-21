@@ -349,7 +349,6 @@ public class SUMOEnv extends Environment {
 
 		}
 		GeneralConsts.NUM_VEHICLES = counter;
-		System.out.println("NUM VEHICLESSSSSSSSSSSSSSSSSS" + GeneralConsts.NUM_VEHICLES);
 	}
 
 	public boolean killAgent(String agentName) {

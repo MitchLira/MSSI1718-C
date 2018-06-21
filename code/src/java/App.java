@@ -15,7 +15,7 @@ public class App{
 	    return null;
 	}
 	
-	public static void replaceSelected(String replaceWith, String filename, String mode) {
+	public static void replaceSelected(String replaceWith, String filename, String mode, String cost) {
 	    try {
 	        // input the file content to the StringBuffer "input"
 	        BufferedReader file = new BufferedReader(new FileReader(filename));
@@ -28,7 +28,7 @@ public class App{
 	        String inputStr = "";
 	        for(int i = 0; i < inputBuffer.size(); i++) {
 	        	if(inputBuffer.get(i).contains("environment")) {
-	        		inputStr += "\tenvironment: jasonenv.SUMOEnv(\"" + mode + "\",\"" + replaceWith + "\")";
+	        		inputStr += "\tenvironment: jasonenv.SUMOEnv(\"" + mode + "\",\"" + replaceWith + "\", \"" + cost + "\")";
 	        	} 
 	        	else
 	        		inputStr += inputBuffer.get(i);
@@ -51,13 +51,16 @@ public class App{
 		Scanner reader = new Scanner(System.in);
 		System.out.println("Number of simulations:");
 		int n = reader.nextInt();
+		System.out.println("Mode (--braess/--no-braess):");
+		String mode = reader.next();
+		String cost = "";
 		String c = "";
 		String agent = "";
 		while(!c.toLowerCase().equals("n")) {
 			System.out.println("Number of agents:");
 			String nAg = reader.next();
 			agent += nAg + "-";
-			System.out.println("Cost:");
+			System.out.println("Time gain using the new route (>0 && <1)");
 			nAg = reader.next();
 			agent += nAg + ",";
 			System.out.println("Want to add more? (y/n):");
@@ -65,7 +68,7 @@ public class App{
 		}
 		agent = agent.substring(0, agent.length() - 1);
 		reader.close();
-		replaceSelected(agent, "bdi.mas2j", "--braess");
+		replaceSelected(agent, "bdi.mas2j", mode, cost);
 		for(int i = 0; i < n; i ++) {
 			System.out.println("Running " + i+1 + " simulation...");
 			RunJasonProject.main(args);
