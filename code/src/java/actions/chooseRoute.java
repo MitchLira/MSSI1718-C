@@ -84,7 +84,7 @@ public class chooseRoute extends DefaultInternalAction {
 				for(Iterator<Lane> it = lanes.iterator(); it.hasNext();) {
 					Lane l = it.next();
 					if(!parentEdges.contains(l.getParentEdge())) {
-						if(route.contains(l.getParentEdge())) {
+						if(route != null && route.contains(l.getParentEdge())) {
 							totalLength += l.getLength();
 							averageSpeed += l.getMaxSpeed();
 							counter++;
@@ -92,10 +92,7 @@ public class chooseRoute extends DefaultInternalAction {
 						parentEdges.add(l.getParentEdge());
 					}
 				}
-				System.out.println("length " + totalLength);
 				averageSpeed /= counter;
-
-				System.out.println("speed " + averageSpeed);
 				if(state.equals("initial")){
 					ratio.put(actionName, totalLength/averageSpeed);
 				}
@@ -124,7 +121,6 @@ public class chooseRoute extends DefaultInternalAction {
 						value = ratio.get(state)/ratio.get("r2");
 					}
 				}
-				System.out.println("VALUE: " + value);
 				double probability = probabilityTerms.get(actionName) / denominator;
 				sum += probability;
 				if(value <= cost && value != 0.0 && value <= 1.0) {

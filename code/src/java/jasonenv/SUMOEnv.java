@@ -86,7 +86,7 @@ public class SUMOEnv extends Environment {
 		instance = new SUMOInstance(configFile);
 
 		
-		File qValuesFile = new File(GeneralConsts.Q_VALUES_FILENAME_BRAESS);
+		File qValuesFile = new File(this.braessMode ? GeneralConsts.Q_VALUES_FILENAME_BRAESS : GeneralConsts.Q_VALUES_FILENAME_NO_BRAESS);
 		if (qValuesFile.exists()) {
 			try {
 				ObjectInputStream ois = new ObjectInputStream(new FileInputStream(qValuesFile));
@@ -199,7 +199,9 @@ public class SUMOEnv extends Environment {
 					instance.addRoute(route2, edgesRoute2);
 					routesToLanes.put(route2, "A2_0");
 					routes.put(route2, edgesRoute2);
-
+					
+					System.out.println("MODE: " + SUMOEnv.this.braessMode);
+					
 					if (SUMOEnv.this.braessMode) {
 						String route3 = "r3";
 						List<Edge> edgesRoute3 = new ArrayList<>();
@@ -316,7 +318,7 @@ public class SUMOEnv extends Environment {
 				Literal temperatureLiteral = new LiteralImpl("temperature");
 				temperatureLiteral.addTerm(new NumberTermImpl(temperature));
 				initialPercepts.add(temperatureLiteral);
-
+				
 				if (this.braessMode) {				
 					Literal pair1 = new LiteralImpl("pair");
 					pair1.addTerms(new Atom("r1"), new Atom("r3"));
