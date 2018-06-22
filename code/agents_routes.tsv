@@ -1,0 +1,33 @@
+agent_0	agent_1	agent_10	agent_11	agent_12	agent_13	agent_14	agent_15	agent_16	agent_17	agent_18	agent_19	agent_2	agent_20	agent_21	agent_22	agent_23	agent_24	agent_25	agent_26	agent_27	agent_28	agent_29	agent_3	agent_30	agent_31	agent_32	agent_33	agent_34	agent_35	agent_36	agent_37	agent_38	agent_39	agent_4	agent_40	agent_41	agent_42	agent_43	agent_44	agent_45	agent_46	agent_47	agent_48	agent_49	agent_5	agent_50	agent_51	agent_52	agent_53	agent_54	agent_55	agent_56	agent_57	agent_58	agent_59	agent_6	agent_60	agent_61	agent_62	agent_63	agent_64	agent_65	agent_66	agent_67	agent_68	agent_69	agent_7	agent_70	agent_71	agent_72	agent_73	agent_74	agent_75	agent_76	agent_77	agent_78	agent_79	agent_8	agent_80	agent_81	agent_82	agent_83	agent_84	agent_85	agent_86	agent_87	agent_88	agent_89	agent_9	agent_90	agent_91	agent_92	agent_93	agent_94	agent_95	agent_96	agent_97	agent_98	agent_99	
+r2	r2	r2	r2	r1	r1	r2	r1	r2	r1	r2	r1	r1	r2	r2	r2	r1	r1	r2	r1	r1	r1	r1	r2	r1	r1	r2	r1	r1	r2	r1	r1	r2	r2	r1	r2	r2	r2	r2	r2	r1	r2	r1	r2	r2	r2	r1	r1	r1	r1	r1	r2	r2	r1	r2	r1	r1	r1	r1	r1	r1	r2	r1	r1	r1	r1	r2	r2	r2	r1	r2	r2	r1	r2	r1	r1	r2	r2	r1	r1	r2	r1	r1	r1	r1	r1	r2	r2	r2	r1	r1	r1	r2	r1	r2	r2	r1	r2	r2	r2	
+r4	r1	r4	r2	r1	r2	r4	r2	r1	r3	r2	r1	r1	r2	r4	r3	r3	r3	r3	r3	r1	r4	r3	r4	r2	r1	r4	r2	r3	r2	r3	r1	r3	r1	r4	r2	r2	r3	r3	r2	r3	r1	r4	r2	r1	r3	r2	r3	r1	r4	r3	r1	r3	r4	r1	r3	r3	r4	r2	r2	r4	r3	r1	r1	r4	r1	r1	r3	r1	r4	r4	r2	r1	r2	r1	r2	r3	r1	r1	r1	r2	r2	r3	r4	r2	r2	r2	r1	r2	r1	r3	r1	r3	r4	r3	r1	r4	r4	r2	r1	r1	r4	r3	r1	r2	r2	r4	r4	r1	r1	r1	r4	r4	r1	r1	r1	r2	r4	r1	r2	r4	r3	r2	r4	r4	r2	r2	r2	r2	r4	r1	r3	r1	r4	r3	r3	r2	r2	r4	r2	r2	r1	r4	r4	r2	r4	r4	r3	r4	r1	
+r4	r3	r3	r2	r4	r4	r1	r3	r4	r1	r2	r2	r1	r2	r2	r4	r2	r4	r3	r2	r3	r2	r2	r4	r1	r1	r2	r3	r1	r2	r4	r2	r2	r3	r3	r2	r4	r4	r4	r4	r3	r4	r3	r3	r1	r3	r1	r3	r1	r3	
+r2	r2	r1	r1	r2	r3	r2	r2	r4	r1	r2	r2	r1	r4	r1	r1	r4	r3	r1	r2	r1	r2	r4	r4	r4	r1	r2	r2	r3	r2	r3	r3	r2	r2	r2	r3	r1	r2	r2	r4	r3	r2	r1	r2	r4	r4	r3	r1	r1	r4	
+r3	r2	r2	r3	r3	r1	r3	r3	r3	r1	r4	r3	r3	r1	r3	r3	r4	r3	r1	r1	r2	r4	r3	r3	r3	r4	r1	r3	r4	r2	r2	r4	r2	r4	r2	r1	r3	r1	r1	r4	r3	r1	r4	r1	r4	r3	r1	r4	r3	r2	
+r1	r3	r4	r1	r2	r4	r1	r3	r4	r1	r4	r4	r2	r1	r4	r1	r1	r3	r4	r2	r1	r2	r2	r1	r1	r4	r2	r3	r1	r3	r3	r3	r4	r1	r1	r4	r1	r4	r2	r4	r4	r1	r4	r2	r2	r2	r3	r2	r3	r2	
+r4	r1	r2	r3	r3	r2	r1	r1	r1	r2	r2	r1	r1	r3	r3	r1	r2	r1	r3	r2	r1	r1	r4	r4	r1	r4	r2	r2	r2	r3	r4	r1	r2	r1	r4	r1	r2	r4	r3	r3	r2	r3	r3	r2	r1	r2	r4	r1	r2	r4	
+r2	r1	r1	r3	r1	r1	r2	r3	r1	r2	r1	r3	r3	r1	r2	r1	r3	r2	r1	r3	r4	r1	r3	r2	r1	r1	r3	r2	r2	r1	r4	r1	r3	r2	r4	r1	r4	r3	r4	r1	r3	r4	r4	r4	r3	r1	r2	r1	r1	r2	
+r4	r4	r3	r4	r2	r3	r1	r2	r3	r2	r1	r2	r3	r2	r1	r1	r2	r3	r1	r1	r3	r2	r2	r1	r3	r2	r3	r3	r3	r4	r4	r2	r3	r1	r3	r4	r4	r4	r2	r3	r2	r1	r4	r3	r4	r1	r4	r1	r1	r1	
+r4	r4	r2	r2	r1	r4	r2	r1	r4	r3	r1	r1	r2	r4	r3	r3	r2	r1	r3	r1	r3	r1	r4	r3	r4	r4	r3	r1	r2	r3	r1	r4	r3	r3	r1	r2	r2	r3	r1	r3	r4	r2	r3	r2	r2	r2	r2	r2	r2	r3	
+r3	r1	r1	r4	r1	r4	r2	r1	r4	r1	r1	r1	r1	r1	r4	r3	r2	r4	r4	r4	r2	r4	r2	r2	r2	r1	r4	r4	r1	r1	r1	r4	r1	r1	r2	r2	r4	r1	r3	r1	r1	r2	r1	r2	r3	r4	r1	r1	r1	r1	
+r2	r3	r3	r1	r1	r3	r1	r3	r4	r2	r1	r2	r3	r4	r4	r2	r4	r1	r3	r4	r2	r3	r1	r3	r4	r1	r3	r3	r1	r1	r2	r2	r1	r2	r1	r1	r4	r2	r2	r1	r4	r4	r4	r1	r1	r2	r3	r1	r2	r2	
+r1	r4	r1	r1	r1	r3	r3	r2	r1	r4	r1	r2	r2	r2	r2	r1	r1	r1	r1	r4	r3	r3	r2	r2	r4	r2	r2	r4	r4	r3	r3	r4	r3	r1	r4	r4	r1	r2	r1	r3	r4	r1	r3	r1	r1	r3	r4	r1	r1	r1	
+r1	r4	r2	r3	r2	r4	r2	r1	r1	r1	r1	r4	r1	r1	r3	r1	r4	r1	r4	r3	r2	r1	r2	r4	r2	r2	r3	r4	r1	r2	r4	r2	r3	r1	r3	r1	r1	r2	r1	r3	r3	r4	r1	r2	r4	r2	r3	r2	r3	r4	
+r2	r1	r4	r2	r4	r3	r2	r2	r1	r3	r1	r1	r2	r4	r2	r4	r3	r1	r1	r2	r3	r2	r3	r1	r3	r3	r4	r1	r2	r1	r4	r1	r3	r2	r2	r1	r1	r3	r2	r2	r2	r2	r3	r2	r2	r4	r2	r3	r3	r1	
+r2	r2	r1	r4	r4	r4	r3	r4	r3	r3	r1	r1	r3	r3	r2	r1	r2	r1	r4	r2	r2	r4	r3	r4	r2	r1	r1	r3	r1	r1	r1	r3	r1	r1	r2	r2	r2	r1	r1	r4	r2	r2	r1	r3	r4	r2	r2	r2	r2	r3	
+r4	r3	r2	r2	r2	r4	r1	r3	r1	r2	r2	r4	r1	r1	r3	r2	r4	r4	r1	r2	r3	r2	r4	r2	r2	r3	r1	r1	r4	r4	r3	r3	r4	r1	r2	r2	r4	r2	r2	r1	r4	r4	r4	r1	r4	r2	r1	r1	r2	r1	
+r2	r1	r1	r1	r1	r1	r2	r2	r1	r2	r2	r2	r1	r1	r2	r2	r2	r1	r1	r2	r2	r1	r1	r2	r1	r2	r2	r1	r2	r2	r1	r2	r2	r1	r1	r1	r2	r2	r1	r2	r2	r2	r1	r2	r2	r2	r1	r2	r1	r1	
+r1	r2	r2	r1	r1	r1	r2	r1	r1	r2	r1	r1	r1	r2	r1	r2	r1	r2	r2	r2	r1	r2	r1	r1	r2	r1	r1	r1	r2	r1	r1	r1	r1	r1	r1	r1	r1	r2	r1	r2	r2	r2	r1	r1	r1	r2	r1	r1	r1	r1	
+r1	r1	r2	r1	r1	r1	r2	r2	r2	r2	r1	r1	r2	r1	r2	r2	r2	r1	r2	r2	r1	r2	r1	r1	r1	r2	r2	r1	r2	r2	r2	r1	r1	r2	r1	r1	r2	r1	r2	r2	r2	r1	r2	r2	r2	r2	r2	r1	r2	r1	
+r1	r1	r2	r2	r2	r1	r1	r1	r1	r2	r2	r2	r1	r1	r1	r1	r1	r2	r1	r2	r2	r1	r2	r2	r1	r1	r2	r2	r1	r2	r2	r1	r1	r1	r1	r1	r1	r1	r1	r2	r2	r2	r2	r1	r2	r2	r2	r2	r2	r2	
+r1	r2	r1	r2	r1	r1	r1	r2	r2	r1	r2	r2	r1	r2	r2	r2	r1	r1	r2	r2	r2	r2	r2	r1	r1	r1	r2	r2	r1	r1	r1	r1	r1	r1	r1	r1	r2	r1	r1	r2	r1	r2	r2	r1	r1	r1	r1	r1	r1	r1	
+r1	r2	r1	r2	r2	r2	r1	r1	r2	r2	r1	r1	r2	r1	r2	r2	r1	r2	r1	r2	r2	r1	r1	r2	r2	r1	r2	r2	r2	r1	r2	r1	r2	r1	r1	r1	r2	r1	r2	r1	r2	r1	r1	r2	r1	r2	r1	r1	r2	r1	
+r2	r1	r1	r1	r1	r1	r2	r2	r1	r2	r2	r2	r2	r2	r2	r2	r1	r2	r2	r2	r2	r1	r1	r1	r2	r1	r2	r1	r1	r2	r1	r1	r1	r1	r1	r1	r2	r2	r1	r2	r1	r1	r2	r1	r2	r2	r1	r1	r2	r1	
+r1	r1	r2	r1	r1	r2	r1	r2	r1	r1	r1	r1	r2	r2	r1	r2	r2	r1	r1	r2	r1	r2	r1	r1	r2	r2	r1	r1	r2	r1	r2	r2	r1	r1	r2	r1	r1	r1	r2	r1	r2	r1	r2	r1	r1	r1	r1	r1	r2	r1	
+r1	r1	r2	r2	r1	r2	r2	r1	r1	r1	r1	r2	r1	r2	r1	r2	r2	r2	r2	r2	r2	r1	r2	r1	r2	r2	r2	r1	r2	r1	r2	r2	r2	r2	r1	r2	r2	r1	r1	r2	r2	r2	r2	r2	r1	r1	r1	r1	r2	r1	
+r1	r1	r2	r2	r2	r1	r1	r2	r1	r2	r1	r2	r2	r1	r2	r1	r1	r2	r2	r1	r2	r2	r2	r2	r1	r1	r1	r1	r1	r2	r2	r1	r1	r2	r2	r2	r1	r2	r2	r1	r2	r2	r1	r1	r2	r1	r1	r1	r1	r1	
+r1	r2	r2	r2	r2	r1	r1	r1	r1	r1	r2	r2	r2	r2	r1	r1	r2	r1	r2	r1	r2	r2	r1	r1	r2	r2	r1	r2	r1	r2	r2	r1	r1	r2	r1	r2	r1	r2	r2	r2	r1	r2	r2	r1	r2	r1	r2	r1	r1	r1	
+r1	r1	r1	r2	r1	r1	r1	r1	r2	r1	r1	r1	r2	r1	r2	r1	r1	r2	r1	r2	r2	r2	r1	r2	r2	r1	r1	r1	r2	r2	r2	r1	r1	r1	r1	r1	r1	r2	r2	r1	r2	r2	r1	r2	r2	r2	r2	r1	r2	r1	
+r1	r1	r1	r2	r1	r2	r2	r1	r1	r1	r2	r2	r2	r1	r1	r2	r1	r1	r2	r1	r1	r1	r1	r2	r2	r2	r1	r1	r1	r1	r2	r1	r1	r1	r1	r1	r1	r1	r2	r2	r2	r2	r1	r2	r2	r1	r1	r2	r2	r1	
+r1	r2	r2	r2	r1	r1	r2	r1	r1	r2	r2	r1	r2	r2	r1	r2	r1	r2	r2	r2	r1	r2	r2	r2	r2	r2	r1	r1	r1	r2	r1	r1	r1	r2	r1	r1	r2	r1	r1	r1	r1	r1	r2	r2	r2	r1	r1	r1	r1	r1	
+r1	r2	r1	r2	r1	r1	r2	r1	r2	r1	r1	r1	r1	r1	r1	r1	r1	r2	r2	r2	r1	r2	r1	r1	r1	r2	r1	r1	r1	r1	r2	r1	r1	r2	r1	r1	r2	r2	r2	r2	r2	r2	r2	r2	r2	r1	r1	r1	r2	r1	

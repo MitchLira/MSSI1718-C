@@ -2,11 +2,14 @@ import java.io.BufferedReader;
 import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.util.ArrayList;
-import java.util.Scanner;
 
 import jason.runtime.*;
 
 public class App{
+	
+	static String mode;
+	static String agent;
+	static int numberOfSimulations;
 	
 	public static Thread getThreadByName(String threadName) {
 	    for (Thread t : Thread.getAllStackTraces().keySet()) {
@@ -48,28 +51,9 @@ public class App{
 	}
 	
 	public static void main(String[] args) throws InterruptedException {
-		Scanner reader = new Scanner(System.in);
-		System.out.println("Number of simulations:");
-		int n = reader.nextInt();
-		System.out.println("Mode (--braess/--no-braess):");
-		String mode = reader.next();
-		String c = "";
-		String agent = "";
-		while(!c.toLowerCase().equals("n")) {
-			System.out.println("Number of agents:");
-			String nAg = reader.next();
-			agent += nAg + "-";
-			System.out.println("Time gain using the new route (>0 && <1)");
-			nAg = reader.next();
-			agent += nAg + ",";
-			System.out.println("Want to add more? (y/n):");
-			c = reader.next();
-		}
-		agent = agent.substring(0, agent.length() - 1);
-		reader.close();
 		replaceSelected(agent, "bdi.mas2j", mode);
-		for(int i = 0; i < n; i ++) {
-			System.out.println("Running " + i+1 + " simulation...");
+		for(int i = 0; i < numberOfSimulations; i ++) {
+			System.out.println("Running " + (i+1) + " simulation...");
 			RunJasonProject.main(args);
 			Thread t = getThreadByName("MAS-Launcher");
 			t.join();

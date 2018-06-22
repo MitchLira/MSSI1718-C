@@ -68,7 +68,6 @@ public class chooseRoute extends DefaultInternalAction {
 				denominator += probabilityTerm;
 
 				probabilityTerms.put(actionName, probabilityTerm);
-				System.out.println(state + " --- " + actionName);
 				List<Edge> route = new ArrayList<Edge>();
 				if(state.equals("initial")) {
 					route = SUMOEnv.routes.get(actionName);
